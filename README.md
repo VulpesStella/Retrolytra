@@ -1,109 +1,94 @@
-# Retrospectum Mod Template
+# Retrolytra
 
-Starter project for Minecraft Forge 1.6.4 / 9.11.1.1345 with
-[Retrospectum Loom](https://github.com/DesideriumMC/RetrospectumLoom) and
-[Retrospectum Mixin](https://github.com/DesideriumMC/RetrospectumMixin).
+Elytra backport for **Minecraft 1.6.4 / Forge 9.11.1.1345**.
+
+## Features
+
+- Elytra item with chest-slot equipping, durability, broken state and leather repair.
+- 1.9-style glide physics, eye height, third-person pose and wing model.
+- Jump while falling to start gliding; look to climb, dive and steer.
+- Firework rockets boost you while gliding.
+- Looping flight sound, enchanted glint, and cape texture when one is available.
+- Multiplayer flight-state synchronisation.
+- Configurable survival recipe, optional Backlytra-style dyeing and optional flight sound.
 
 ## Requirements
 
-| Purpose | JDK |
-| --- | --- |
-| Gradle 8.14.6 | 17 |
-| Compilation and Mixin annotation processing | 8 |
-| Target API and default game runtime | 7 |
+- Minecraft 1.6.4
+- Forge 9.11.1.1345
+- [Retrospectum Mixin](https://github.com/DesideriumMC/RetrospectumMixin)
+- Java 7 or 8 for the game
 
-## Setup
+## Installation
 
-1. Click **Use this template → Create a new repository**, then clone your new repository.
-2. Run the setup script for your platform:
+1. Install Minecraft Forge 1.6.4.
+2. Put [Retrospectum Mixin](https://github.com/DesideriumMC/RetrospectumMixin) and
+   `retrolytra-retrospectum-1.6.4-<version>.jar` into the `mods/` directory.
+3. Launch the game.
 
-   ```powershell
-   # Windows x64
-   ./setup.ps1
-   ./build.ps1 build genSources genIdeaRuns
-   ```
+## Usage
 
-   ```sh
-   # Linux x86_64 (glibc)
-   ./setup.sh
-   ./build.sh build genSources genIdeaRuns
-   ```
+- Right-click an elytra, or shift-click it from the inventory, to equip it.
+- While falling, press jump to start gliding.
+- Look up to climb, look down to dive; the wings follow your movement.
+- Hold a firework rocket and right-click while gliding to boost.
+- Repair a damaged elytra with leather in an anvil.
 
-3. Edit `gradle.properties` to configure the mod metadata, and set the project name in `settings.gradle`.
-4. Replace the example Java package and mixin classes with your own.
+## Configuration
 
-Setup reuses installed JDKs, including those downloaded by IntelliJ IDEA. Missing
-JDKs are downloaded and verified against `gradle/jdks.lock.tsv`, then installed
-under `.jdks/7`, `.jdks/8` and `.jdks/17`. The pinned packages are
-[Azul Zulu Community Availability builds](https://docs.azul.com/core/install/metadata-api). Linux requires glibc, Bash, curl, tar, sha256sum
-and standard GNU utilities. Windows uses PowerShell 5.1 or later.
+`config/retrolytra.cfg`:
 
-`build.ps1` and `build.sh` run setup automatically on first use, select JDK 17
-for Gradle and forward their arguments to the Gradle Wrapper. Use the same scripts
-with `runClient` or `runServer` to start the game.
+| Key | Default | Description |
+| --- | --- | --- |
+| `itemId` | `5000` | Numeric item id. |
+| `durability` | `432` | Damage before the elytra becomes unusable. |
+| `dataWatcherFlag` | `7` | Entity flag bit used to sync flight. |
+| `recipe` | `simple` | `none`, `simple`, `day_one` or `ridiculous`. |
+| `enableDyeing` | `false` | Enables the Backlytra-style dye recipe and tinted wings. Existing dyed elytra keep their NBT colour but render undyed while disabled. |
+| `enableFlightSound` | `true` | Enables the looping flight sound. |
+| `enableFireworkBoost` | `true` | Enables firework-rocket boosting. |
 
-To download all three SDKs into the project, use `./setup.ps1 -Download`
-or `./setup.sh --download`. Downloads and local configuration are excluded from Git.
+## Building
 
-Setup registers the selected SDKs in Gradle's automatic discovery directory,
-`~/.jdks`, using Windows directory junctions or Linux symbolic links. SDK files
-remain in their original location. The tracked `gradle.properties` contains shared
-mod configuration and commented manual JDK overrides; setup leaves it unchanged.
-Local SDK selections are recorded in `.jdks/homes.properties` and excluded from Git.
+Requirements: JDK 17 for Gradle, JDK 8 for compilation.
 
-For IntelliJ IDEA, run setup before importing the project. Gradle's daemon JVM
-criteria select JDK 17, and Gradle Toolchains discover JDK 7 and 8 automatically.
-`JAVA7_HOME`, `JAVA8_HOME`, `JAVA17_HOME` and `JDK7`/`JDK8`/`JDK17` are supported
-during setup. Run setup again after moving the project to refresh its SDK links.
-
-Without setup, Loom can also resolve an installed Java 7 JDK through Gradle
-Toolchains. `java7Home` and `org.gradle.java.installations.paths` remain optional manual
-overrides. The daemon JVM version is set in `gradle/gradle-daemon-jvm.properties`.
-
-The repository includes prebuilt Loom and Mixin in `libs/`. Gradle downloads
-the remaining build and game dependencies.
-
-## Build tool versions
-
-Versions and paths are configured by `loom_version` and `mixin_bootstrap` in
-`gradle.properties`. Bundled artifact versions and checksums are listed in
-[libs/](libs/README.md).
-
-To develop against Loom or Mixin source, set `retrospectumLoomCheckout` or
-`retrospectumMixinCheckout` to the corresponding checkout. The Mixin source mode
-uses its built `0.1.0-SNAPSHOT` Bootstrap.
-
-## Mod configuration
-
-Configure the mod in `gradle.properties`:
-
-```properties
-mod_id=examplemod
-mod_name=Example Mod
-mod_group=example
-version=1.0.0
-mod_description=An example Retrospectum mod.
-mod_authors=Your Name,Another Author
-mod_url=
-mod_credits=
+```powershell
+./setup.ps1
+./build.ps1 build
 ```
 
-The build fills `ExampleMod.MOD_ID`, `MOD_NAME` and `VERSION`, and expands
-`mcmod.info`. Authors are a comma-separated list. Generated Java sources are
-written to `build/prepared-sources/main/java`.
+Linux:
 
-`src/main/resources/mod.mixins.json` becomes `<mod_id>.mixins.json`, with a
-`<mod_id>.mixins.refmap.json` refmap. Loom adds the configuration to the manifest
-and remaps the release JAR to SRG names. The output JAR is named
-`<mod_id>-retrospectum-1.6.4-<version>.jar`.
+```sh
+./setup.sh
+./build.sh build
+```
 
-The example injects into the world constructor and prints a message.
+`./build.ps1 genSources` generates decompiled sources and `./build.ps1 runClient`
+starts a development client. The release jar is written to
+`build/libs/retrolytra-retrospectum-1.6.4-<version>.jar`.
 
-## Distribution
+## API
 
-Build output is in `build/libs/`. Distribute the SRG release JAR produced by
-`remapJarForRelease`. Install Retrospectum Mixin alongside the mod.
+Other mods can use
+`io.github.vulpesstella.retrolytra.api.RetrolytraAPI`:
 
-## License
+- `isElytraFlying(EntityPlayer)`
+- `setElytraFlying(EntityPlayer, boolean)`
+- `getTicksElytraFlying(EntityPlayer)`
+- `getWornElytra(EntityPlayer)`
 
-MIT. See [LICENSE](LICENSE).
+## Assets and license
+
+The elytra textures and flight sound are extracted from Minecraft 1.9.4 and
+embedded in the jar. They are Mojang assets and are not covered by the project's
+LGPL-3.0 license; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+The extraction is reproducible with the scripts in `tools/`.
+
+Project code is licensed under LGPL-3.0; see [LICENSE](LICENSE).
+
+## Credits
+
+- [Backlytra](https://github.com/unascribed-archive/Backlytra)
+- [Et Futurum Requiem](https://github.com/Roadhog360/Et-Futurum-Requiem)
+- [Retrospectum Loom](https://github.com/DesideriumMC/RetrospectumLoom)

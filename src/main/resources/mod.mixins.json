@@ -2,9 +2,12 @@
   "required": true,
   "minVersion": "0.8.7",
   "target": "@env(DEFAULT)",
-  "package": "example.mixin",
+  "package": "io.github.vulpesstella.retrolytra.mixin",
   "compatibilityLevel": "JAVA_6",
   "refmap": "${mixin_refmap}",
-  "mixins": ["WorldMixin"],
+  "mixins": ["MixinContainerPlayer", "MixinEntityLivingBase", "MixinEntityPlayer"],
+  "client": ["MixinEntityPlayerSP", "MixinModelBiped", "MixinRenderPlayer"],
+  "server": ["MixinNetServerHandler"],
   "injectors": { "defaultRequire": 1 }
 }
+
