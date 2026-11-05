@@ -2,6 +2,7 @@ package io.github.vulpesstella.retrolytra.client;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import io.github.vulpesstella.retrolytra.elytra.IClientElytraPlayer;
 import io.github.vulpesstella.retrolytra.elytra.IElytraPlayer;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -66,15 +67,34 @@ public class ModelElytra extends ModelBase {
 
         this.leftWing.rotationPointX = 5.0F;
         this.leftWing.rotationPointY = pointY;
-        this.leftWing.rotateAngleX = rotateX;
-        this.leftWing.rotateAngleY = rotateY;
-        this.leftWing.rotateAngleZ = rotateZ;
+
+        float wingRotateX = rotateX;
+        float wingRotateY = rotateY;
+        float wingRotateZ = rotateZ;
+
+        if (entity instanceof IClientElytraPlayer) {
+            IClientElytraPlayer client = (IClientElytraPlayer) entity;
+            client.retrolytra$setRotateElytraX((float) (client.retrolytra$getRotateElytraX()
+                    + (rotateX - client.retrolytra$getRotateElytraX()) * 0.1D));
+            client.retrolytra$setRotateElytraY((float) (client.retrolytra$getRotateElytraY()
+                    + (rotateY - client.retrolytra$getRotateElytraY()) * 0.1D));
+            client.retrolytra$setRotateElytraZ((float) (client.retrolytra$getRotateElytraZ()
+                    + (rotateZ - client.retrolytra$getRotateElytraZ()) * 0.1D));
+
+            wingRotateX = client.retrolytra$getRotateElytraX();
+            wingRotateY = client.retrolytra$getRotateElytraY();
+            wingRotateZ = client.retrolytra$getRotateElytraZ();
+        }
+
+        this.leftWing.rotateAngleX = wingRotateX;
+        this.leftWing.rotateAngleY = wingRotateY;
+        this.leftWing.rotateAngleZ = wingRotateZ;
 
         this.rightWing.rotationPointX = -5.0F;
         this.rightWing.rotationPointY = pointY;
-        this.rightWing.rotateAngleX = rotateX;
-        this.rightWing.rotateAngleY = -rotateY;
-        this.rightWing.rotateAngleZ = -rotateZ;
+        this.rightWing.rotateAngleX = wingRotateX;
+        this.rightWing.rotateAngleY = -wingRotateY;
+        this.rightWing.rotateAngleZ = -wingRotateZ;
     }
 }
 

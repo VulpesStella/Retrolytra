@@ -4,6 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.github.vulpesstella.retrolytra.Config;
 import io.github.vulpesstella.retrolytra.recipe.ElytraDyeRecipe;
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -33,6 +34,11 @@ public class ItemElytra extends Item {
         this.maxStackSize = 1;
         this.setMaxDamage(Config.durability);
         this.setCreativeTab(CreativeTabs.tabCombat);
+
+        Object armorDispense = BlockDispenser.dispenseBehaviorRegistry.getObject(Item.plateIron);
+        if (armorDispense != null) {
+            BlockDispenser.dispenseBehaviorRegistry.putObject(this, armorDispense);
+        }
     }
 
     /** Returns the elytra worn in the chest slot, or {@code null}. */
@@ -90,7 +96,9 @@ public class ItemElytra extends Item {
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         if (player.getCurrentArmor(2) == null) {
             player.setCurrentItemOrArmor(3, stack.copy());
-            stack.stackSize = 0;
+            if (!player.capabilities.isCreativeMode) {
+                stack.stackSize = 0;
+            }
         }
         return stack;
     }
