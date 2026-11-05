@@ -31,11 +31,10 @@ Elytra backport for **Minecraft 1.6.4 / Forge 9.11.1.1345**.
 
 ## Multiplayer servers
 
-- Set `allow-flight=true` in `server.properties`. A 1.6.4 server otherwise kicks
-  players who stay airborne for more than 80 ticks, including elytra flight.
-- `online-mode=true` requires a real authenticated Minecraft session. A
-  development client started by `runClient` has no session and will crash during
-  the 1.6.4 login handshake; use `online-mode=false` for local testing.
+- Active elytra flight is exempt from `allow-flight=false` by default
+  (`exemptElytraFromAllowFlight`). Set that option to `false` to keep the
+  vanilla 1.6.4 floating kick; then also set `allow-flight=true` if players
+  should be allowed to glide.
 
 ## Usage
 
@@ -59,6 +58,7 @@ Elytra backport for **Minecraft 1.6.4 / Forge 9.11.1.1345**.
 | `enableFlightSound` | `true` | Enables the looping flight sound. |
 | `enableFireworkBoost` | `true` | Enables firework-rocket boosting. |
 | `enableNewElytraTakeoffLogic` | `true` | 1.15+ takeoff: jump while airborne, even while ascending. Set `false` for the 1.9–1.14 downward-motion rule. |
+| `exemptElytraFromAllowFlight` | `true` | Lets active elytra flight bypass the vanilla `allow-flight=false` floating kick. |
 
 ## Building
 

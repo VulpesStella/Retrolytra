@@ -39,6 +39,13 @@ public final class Config {
      */
     public static boolean enableNewElytraTakeoffLogic = true;
 
+    /**
+     * Exempt an actively gliding elytra player from the vanilla
+     * {@code allow-flight=false} floating kick. The exemption only applies
+     * while the server-side elytra flag is set.
+     */
+    public static boolean exemptElytraFromAllowFlight = true;
+
     private Config() {
     }
 
@@ -86,6 +93,12 @@ public final class Config {
                 Configuration.CATEGORY_GENERAL, "enableNewElytraTakeoffLogic", true,
                 "Use 1.15+ takeoff logic: jump while airborne, even while still ascending.");
         enableNewElytraTakeoffLogic = takeoffProperty.getBoolean(true);
+
+        Property allowFlightProperty = config.get(
+                Configuration.CATEGORY_GENERAL, "exemptElytraFromAllowFlight", true,
+                "Allow active elytra gliding on servers with allow-flight=false. "
+                        + "Only bypasses the floating kick while the elytra is deployed.");
+        exemptElytraFromAllowFlight = allowFlightProperty.getBoolean(true);
 
         config.save();
     }
