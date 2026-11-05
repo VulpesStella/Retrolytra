@@ -10,6 +10,8 @@ Elytra backport for **Minecraft 1.6.4 / Forge 9.11.1.1345**.
 - Firework rockets boost you while gliding.
 - Looping flight sound, enchanted glint, and cape texture when one is available.
 - Multiplayer flight-state synchronisation.
+- Item-name and death-message translations for all 68 Minecraft 1.6.4 locales
+  (English fallback where 1.9.4 has no translation).
 - Configurable survival recipe, optional Backlytra-style dyeing and optional flight sound.
 
 ## Requirements
