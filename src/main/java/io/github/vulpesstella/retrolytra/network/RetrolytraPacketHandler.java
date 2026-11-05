@@ -2,6 +2,7 @@ package io.github.vulpesstella.retrolytra.network;
 
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
+import io.github.vulpesstella.retrolytra.Config;
 import io.github.vulpesstella.retrolytra.ModItems;
 import io.github.vulpesstella.retrolytra.elytra.IElytraPlayer;
 import io.github.vulpesstella.retrolytra.item.ItemElytra;
@@ -37,7 +38,9 @@ public class RetrolytraPacketHandler implements IPacketHandler {
 
     private void handleStartFlying(EntityPlayerMP player) {
         IElytraPlayer elytraPlayer = (IElytraPlayer) player;
-        if (player.onGround || player.motionY >= 0.0D || player.isInWater() || player.isRiding()
+        if (player.onGround
+                || (!Config.enableNewElytraTakeoffLogic && player.motionY >= 0.0D)
+                || player.isInWater() || player.isRiding()
                 || player.capabilities.isFlying || elytraPlayer.retrolytra$isElytraFlying()) {
             return;
         }

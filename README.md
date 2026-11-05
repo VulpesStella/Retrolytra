@@ -7,6 +7,7 @@ Elytra backport for **Minecraft 1.6.4 / Forge 9.11.1.1345**.
 - Elytra item with chest-slot equipping, durability, broken state and leather repair.
 - 1.9-style glide physics, eye height, third-person pose and wing model.
 - Jump while falling to start gliding; look to climb, dive and steer.
+- 1.15+ takeoff logic by default: jump, then jump again while airborne to deploy the elytra.
 - Firework rockets boost you while gliding.
 - Looping flight sound, enchanted glint, and cape texture when one is available.
 - Multiplayer flight-state synchronisation.
@@ -49,6 +50,7 @@ Elytra backport for **Minecraft 1.6.4 / Forge 9.11.1.1345**.
 | `enableDyeing` | `false` | Enables the Backlytra-style dye recipe and tinted wings. Existing dyed elytra keep their NBT colour but render undyed while disabled. |
 | `enableFlightSound` | `true` | Enables the looping flight sound. |
 | `enableFireworkBoost` | `true` | Enables firework-rocket boosting. |
+| `enableNewElytraTakeoffLogic` | `true` | 1.15+ takeoff: jump while airborne, even while ascending. Set `false` for the 1.9–1.14 downward-motion rule. |
 
 ## Building
 

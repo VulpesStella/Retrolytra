@@ -1,5 +1,6 @@
 package io.github.vulpesstella.retrolytra.mixin;
 
+import io.github.vulpesstella.retrolytra.Config;
 import io.github.vulpesstella.retrolytra.ModItems;
 import io.github.vulpesstella.retrolytra.elytra.IElytraPlayer;
 import io.github.vulpesstella.retrolytra.item.ItemElytra;
@@ -22,7 +23,8 @@ public abstract class MixinEntityPlayerSP {
     private void retrolytra$startFlying(CallbackInfo ci) {
         EntityPlayerSP self = (EntityPlayerSP) (Object) this;
         boolean jumping = self.movementInput.jump;
-        if (jumping && !this.retrolytra$lastJumping && !self.onGround && self.motionY < 0.0D
+        if (jumping && !this.retrolytra$lastJumping && !self.onGround
+                && (Config.enableNewElytraTakeoffLogic || self.motionY < 0.0D)
                 && !((IElytraPlayer) self).retrolytra$isElytraFlying()
                 && !self.capabilities.isFlying && !self.isInWater() && !self.isRiding()) {
             ItemStack chest = self.getCurrentItemOrArmor(3);

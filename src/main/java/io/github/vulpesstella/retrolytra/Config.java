@@ -33,6 +33,12 @@ public final class Config {
     /** Enables firework-rocket boosting while gliding. */
     public static boolean enableFireworkBoost = true;
 
+    /**
+     * 1.15+ takeoff: jump while airborne, no downward-motion requirement.
+     * When false, the 1.9-1.14 {@code motionY < 0} rule is used.
+     */
+    public static boolean enableNewElytraTakeoffLogic = true;
+
     private Config() {
     }
 
@@ -75,6 +81,11 @@ public final class Config {
                 Configuration.CATEGORY_GENERAL, "enableFireworkBoost", true,
                 "Enable firework-rocket boosting while gliding.");
         enableFireworkBoost = fireworkProperty.getBoolean(true);
+
+        Property takeoffProperty = config.get(
+                Configuration.CATEGORY_GENERAL, "enableNewElytraTakeoffLogic", true,
+                "Use 1.15+ takeoff logic: jump while airborne, even while still ascending.");
+        enableNewElytraTakeoffLogic = takeoffProperty.getBoolean(true);
 
         config.save();
     }
