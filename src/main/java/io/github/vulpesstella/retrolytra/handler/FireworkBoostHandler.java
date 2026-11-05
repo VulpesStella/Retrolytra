@@ -30,7 +30,7 @@ public class FireworkBoostHandler {
         if (held == null || held.getItem() != Item.firework) {
             return;
         }
-        if (!((IElytraPlayer) player).retrolytra$isElytraFlying()) {
+        if (player.onGround || !((IElytraPlayer) player).retrolytra$isElytraFlying()) {
             return;
         }
 
