@@ -19,6 +19,9 @@ public abstract class MixinEntityPlayerSP {
     @Unique
     private boolean retrolytra$lastJumping;
 
+    @Unique
+    private boolean retrolytra$lastFlying;
+
     @Inject(method = "onLivingUpdate", at = @At("TAIL"))
     private void retrolytra$startFlying(CallbackInfo ci) {
         EntityPlayerSP self = (EntityPlayerSP) (Object) this;
@@ -26,13 +29,15 @@ public abstract class MixinEntityPlayerSP {
         if (jumping && !this.retrolytra$lastJumping && !self.onGround
                 && (Config.enableNewElytraTakeoffLogic || self.motionY < 0.0D)
                 && !((IElytraPlayer) self).retrolytra$isElytraFlying()
-                && !self.capabilities.isFlying && !self.isInWater() && !self.isRiding()) {
+                && !self.capabilities.isFlying && !this.retrolytra$lastFlying
+                && !self.isInWater() && !self.isRiding()) {
             ItemStack chest = self.getCurrentItemOrArmor(3);
             if (chest != null && chest.getItem() == ModItems.elytra && ItemElytra.isUsable(chest)) {
                 RetrolytraNetwork.sendStartFlying();
             }
         }
         this.retrolytra$lastJumping = jumping;
+        this.retrolytra$lastFlying = self.capabilities.isFlying;
     }
 }
 
