@@ -9,6 +9,7 @@ Elytra backport for **Minecraft 1.6.4 / Forge 9.11.1.1345**.
 - Jump while falling to start gliding; look to climb, dive and steer.
 - 1.15+ takeoff logic by default: jump, then jump again while airborne to deploy the elytra.
 - Firework rockets boost you while gliding.
+- Optional QuickTakeoff: right-click a firework while airborne to deploy the elytra and boost in one action.
 - Looping flight sound, enchanted glint, and cape texture when one is available.
 - Multiplayer flight-state synchronisation.
 - Item-name and death-message translations for 1.6.4 locales with official
@@ -42,6 +43,7 @@ Elytra backport for **Minecraft 1.6.4 / Forge 9.11.1.1345**.
 - While falling, press jump to start gliding.
 - Look up to climb, look down to dive; the wings follow your movement.
 - Hold a firework rocket and right-click while gliding to boost.
+- With `enableQuickTakeoff=true`, right-click a firework while airborne to deploy the elytra and boost in one action.
 - Repair a damaged elytra with leather in an anvil.
 
 ## Configuration
@@ -57,6 +59,7 @@ Elytra backport for **Minecraft 1.6.4 / Forge 9.11.1.1345**.
 | `enableDyeing` | `false` | Enables the Backlytra-style dye recipe and tinted wings. Existing dyed elytra keep their NBT colour but render undyed while disabled. |
 | `enableFlightSound` | `true` | Enables the looping flight sound. |
 | `enableFireworkBoost` | `true` | Enables firework-rocket boosting. |
+| `enableQuickTakeoff` | `false` | Allows an airborne player to deploy the elytra and boost with one firework right-click. |
 | `enableNewElytraTakeoffLogic` | `true` | 1.15+ takeoff: jump while airborne, even while ascending. Set `false` for the 1.9–1.14 downward-motion rule. |
 | `exemptElytraFromAllowFlight` | `true` | Lets active elytra flight bypass the vanilla `allow-flight=false` floating kick. |
 
@@ -103,4 +106,5 @@ Project code is licensed under LGPL-3.0; see [LICENSE](LICENSE).
 
 - [Backlytra](https://github.com/unascribed-archive/Backlytra)
 - [Et Futurum Requiem](https://github.com/Roadhog360/Et-Futurum-Requiem)
+- [QuickTakeoff](https://github.com/Nova-Committee/QuickTakeoff)
 - [Retrospectum Loom](https://github.com/DesideriumMC/RetrospectumLoom)

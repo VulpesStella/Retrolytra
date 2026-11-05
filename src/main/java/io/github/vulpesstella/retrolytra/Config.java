@@ -46,6 +46,12 @@ public final class Config {
      */
     public static boolean exemptElytraFromAllowFlight = true;
 
+    /**
+     * QuickTakeoff: right-clicking a firework while airborne starts elytra
+     * flight and applies the boost in the same action. Disabled by default.
+     */
+    public static boolean enableQuickTakeoff = false;
+
     private Config() {
     }
 
@@ -99,6 +105,11 @@ public final class Config {
                 "Allow active elytra gliding on servers with allow-flight=false. "
                         + "Only bypasses the floating kick while the elytra is deployed.");
         exemptElytraFromAllowFlight = allowFlightProperty.getBoolean(true);
+
+        Property quickTakeoffProperty = config.get(
+                Configuration.CATEGORY_GENERAL, "enableQuickTakeoff", false,
+                "Allow right-clicking a firework while airborne to deploy the elytra and boost immediately.");
+        enableQuickTakeoff = quickTakeoffProperty.getBoolean(false);
 
         config.save();
     }
