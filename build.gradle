@@ -44,18 +44,24 @@ tasks.named('processResources', ProcessResources) {
 }
 
 def mixinCheckout = providers.gradleProperty('retrospectumMixinCheckout').orNull
-def bootstrapJar = mixinCheckout
-    ? file("${mixinCheckout}/runtime/mixin-bootstrap/build/libs/retrospectum-mixin-0.1.0-SNAPSHOT.jar")
-    : file(providers.gradleProperty('mixin_bootstrap').getOrElse('libs/retrospectum-mixin-0.1.0-alpha.1.jar'))
+def mixinVersion = providers.gradleProperty('mixin_version').getOrElse('0.1.0')
+def localBootstrap = providers.gradleProperty('mixin_bootstrap').orNull
 
 repositories {
+    maven { url = uri(providers.gradleProperty('retrospectumMavenUrl').getOrElse('https://maven.desiderium.dev/releases/')) }
     maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
 }
 dependencies {
     minecraft 'com.mojang:minecraft:1.6.4'
     forge 'net.minecraftforge:forge:1.6.4-9.11.1.1345:universal'
     mappings 'net.minecraftforge:forge:1.6.4-9.11.1.1345:src@zip'
-    mixinBootstrap files(bootstrapJar)
+    if (mixinCheckout) {
+        mixinBootstrap files("${mixinCheckout}/runtime/mixin-bootstrap/build/libs/retrospectum-mixin-${mixinVersion}.jar")
+    } else if (localBootstrap) {
+        mixinBootstrap files(localBootstrap)
+    } else {
+        mixinBootstrap "dev.desiderium.retro:retrospectum-mixin:${mixinVersion}"
+    }
     annotationProcessor 'org.spongepowered:mixin:0.8.7:processor'
 }
 retrospectum.mixin('main', mixinRefmapName)
