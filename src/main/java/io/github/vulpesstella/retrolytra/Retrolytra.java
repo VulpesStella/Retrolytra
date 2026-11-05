@@ -19,10 +19,10 @@ import io.github.vulpesstella.retrolytra.proxy.CommonProxy;
         packetHandler = RetrolytraPacketHandler.class)
 public final class Retrolytra {
 
-    // Expanded from gradle.properties into build/prepared-sources/main/java.
-    public static final String MOD_ID = "@MOD_ID@";
-    public static final String MOD_NAME = "@MOD_NAME@";
-    public static final String VERSION = "@MOD_VERSION@";
+    // Compile-time constants generated from gradle.properties.
+    public static final String MOD_ID = BuildConstants.MOD_ID;
+    public static final String MOD_NAME = BuildConstants.MOD_NAME;
+    public static final String VERSION = BuildConstants.MOD_VERSION;
 
     public static final String CHANNEL = "Retrolytra";
 
