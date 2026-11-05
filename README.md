@@ -29,6 +29,14 @@ Elytra backport for **Minecraft 1.6.4 / Forge 9.11.1.1345**.
    `retrolytra-retrospectum-1.6.4-<version>.jar` into the `mods/` directory.
 3. Launch the game.
 
+## Multiplayer servers
+
+- Set `allow-flight=true` in `server.properties`. A 1.6.4 server otherwise kicks
+  players who stay airborne for more than 80 ticks, including elytra flight.
+- `online-mode=true` requires a real authenticated Minecraft session. A
+  development client started by `runClient` has no session and will crash during
+  the 1.6.4 login handshake; use `online-mode=false` for local testing.
+
 ## Usage
 
 - Right-click an elytra, or shift-click it from the inventory, to equip it.
