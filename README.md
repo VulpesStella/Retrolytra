@@ -93,6 +93,10 @@ Other mods can use
 - `getTicksElytraFlying(EntityPlayer)`
 - `getWornElytra(EntityPlayer)`
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for release notes.
+
 ## Assets and license
 
 The elytra textures and flight sound are extracted from Minecraft 1.9.4 and
